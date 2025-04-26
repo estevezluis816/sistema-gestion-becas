@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- CONTENIDO -->
+<div class="buscadores">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+        <button class="btn btn-primary ano" type="submit">Buscar</button>
+    </form>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+        <button class="btn btn-primary carrera" type="submit">Buscar</button>
+    </form>
+</div>
+
+<div class="blue special" style="margin: 200px auto 90px;">
+    <div id="formulario" class="myForm">
+        <h1 class="display-3 encabezados">Listado de Estudiantes:</h1>
+        <hr>
+        {% for estudiante in estudiantes %}
+        <a class="list-edif" href="{% url 'mostrar_estudiantes' estudiante.id %}">{{estudiante.id}}</a>
+        {% endfor %}
+    </div>
+</div> 
+
+{% endblock %}

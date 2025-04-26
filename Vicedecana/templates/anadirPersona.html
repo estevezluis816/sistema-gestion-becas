@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+<!-- CONTENIDO -->
+<div class="form-container-edificio blue">
+    <a href="{% url 'listado_personas'%}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    </a>
+
+
+    <form id="formulario" class="registro-edificio row g-3 needs-validation" method="POST" novalidate>
+        <h1 class="display-3 encabezados">Añadir persona:</h1>
+
+        <hr>
+
+        <div class="col-md-12 centro">
+            <input type="text" class="form-control a-p" id="validationCustom01" placeholder="Nombre" required
+                name="texto">
+        </div>
+
+        <div class="col-md-12 centro">
+            <input type="text" class="form-control a-p" id="validationCustom05" placeholder="Apellidos" required
+                name="texto">
+        </div>
+
+
+        <div class="boton-container">
+            <a class="links" href="{% url 'listado_personas'%}">
+                <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
+            </a>
+            <a href="{% url 'listado_personas'%}"><button type="button"
+                    class="btn btn-primary btn-lg botones">Aceptar</button></a>
+
+        </div>
+    </form>
+
+
+</div>
+
+
+{% endblock %}

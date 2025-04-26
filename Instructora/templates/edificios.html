@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- CONTENIDO -->
+<div class="buscadores">
+    <section>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+            <button class="btn btn-primary ano" type="submit">Buscar</button>
+        </form>
+        <form class="d-flex" role="search">
+            <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+            <button class="btn btn-primary carrera" type="submit">Buscar</button>
+        </form>
+    </section>
+
+</div>
+
+
+<div class="blue special" style="margin: 200px auto 90px;">
+    <div id="formulario">
+        <h1 class="display-3 encabezados">Listado de Edificios:</h1>
+        <hr>
+        <!-- {% for edificio in edificios %}
+        <a class="e-e" href="">{{edificio.numero}}</a>
+        {% endfor %} -->
+    </div>
+</div>
+
+{% endblock %}

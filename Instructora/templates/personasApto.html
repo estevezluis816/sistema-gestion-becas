@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- CONTENIDO -->
+<div class="buscadores">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+        <button class="btn btn-primary ano" type="submit">Buscar</button>
+    </form>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+        <button class="btn btn-primary carrera" type="submit">Buscar</button>
+    </form>
+</div>
+
+
+
+<div class="blue" style="margin: 200px auto 90px;">
+    <a href="{% url 'Apartamentos I'%}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    </a>
+    <div id="formulario">
+        <h1 class="display-3 encabezados">Apartamento:</h1>
+
+        <hr>
+
+
+
+    </div>
+</div>
+
+{% endblock %}
+
+
+
+

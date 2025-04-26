@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}  <!-- ¡Añade esta línea! -->
+
+{% block content %}
+
+<div class="form-container-edificio blue">
+    <!-- Elimina este enlace a listado_apartamentos -->
+    <a href="{% url 'listado_edificios'%}">  <!-- Enlace corregido -->
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    </a>
+
+    <form id="formulario" class="registro-estudiante row g-3 needs-validation" method="POST" novalidate>
+        {% csrf_token %}
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Errores:</strong>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        <h1 class="display-3 encabezados">Editar Edificio:</h1>  <!-- Título corregido -->
+        <hr>
+
+        <!-- Campos del formulario actualizados para Edificio -->
+
+        <div class="col-md-6" id="numeroEdificio">
+            {{ form.numero|add_class:"form-control" }}
+        </div>
+
+
+        <div class="col-md-6" id="carrera">
+            {{ form.facultad|add_class:"form-control" }}
+        </div>
+
+
+
+        <div class="col-md-6" id="cantApto">
+            {{ form.carrera|add_class:"form-control" }}
+        </div>
+
+
+        <div class="col-md-6" id="anno">
+            {{ form.ano|add_class:"form-control" }}
+        </div>
+
+
+        <div class="col-md-6" id="facultad">
+            {{ form.disponibilidad|add_class:"form-control" }}
+        </div>
+
+        <div class="boton-container">
+            <a class="links" href="{% url 'listado_edificios'%}">
+                <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
+            </a>
+            <button type="submit" class="btn btn-primary btn-lg botones">Aceptar</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

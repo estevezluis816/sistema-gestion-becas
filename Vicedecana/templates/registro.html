@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- CONTENIDO -->
+<div class="blue">
+    <div id="formulario">
+        <h1 class="display-3 encabezados">Registro de:</h1>
+        <hr>
+        <a class="links" href="{% url 'registrar_edificios'%}">
+            <button type="button" class="btn btn-secondary btn-lg botones">Edificio</button>
+        </a>
+        <a class="links" href="{% url 'registrar_estudiantes'%}">
+            <button type="button" class="btn btn-primary btn-lg botones">Estudiante</button>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+

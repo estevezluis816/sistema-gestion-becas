@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="buscadores">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+        <button class="btn btn-primary ano" type="submit">Buscar</button>
+    </form>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+        <button class="btn btn-primary carrera" type="submit">Buscar</button>
+    </form>
+</div>
+
+<div class="blue" style="margin: 200px auto 90px;">
+    <a href="{% url 'listado_estudiantes' %}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    </a>
+    <form id="formulario" class="registro-estudiante row g-3 needs-validation" method="POST" novalidate>
+        {% csrf_token %}
+        {% if form.errors %}
+        <p>Por favor corrige los errores del formulario.</p>
+        <ul>
+            {% for field in form %} {% for error in field.errors %}
+            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}{% endfor %}
+        </ul>
+        {% endif %}
+        <h1 class="display-3 encabezados">Editar estudiante:</h1>
+        <hr>
+
+        <div class="col-md-6">
+            {{ form.full_name|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.id|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.usuario|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.facultad|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.carrera|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.grade|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.province|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.municipio|add_class:"form-control" }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form.apartamento|add_class:"form-control" }}
+
+        </div>
+
+
+
+        <div class="boton-container">
+
+            <a class="links" href="{% url 'listado_estudiantes' %}">
+                <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
+            </a>
+
+
+            <button type="submit" class="btn btn-primary btn-lg botones">Aceptar</button>
+        </div>
+    </form>
+</div>
+
+</div>
+
+{% endblock %}

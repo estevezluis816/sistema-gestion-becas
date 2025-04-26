@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<!-- CONTENIDO -->
+<div class="buscadores">
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+        <button class="btn btn-primary ano" type="submit">Buscar</button>
+    </form>
+    <form class="d-flex" role="search">
+        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+        <button class="btn btn-primary carrera" type="submit">Buscar</button>
+    </form>
+</div>
+
+<div class="blue" style="margin: 200px auto 90px;">
+    <a href="{% url 'listado_estudiantes'%}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    </a>
+    <div id="formulario" class="myForm">
+        <h1 class="display-3 encabezados">Estudiante:</h1>
+        <hr>
+        <div class="list-estudiantes">
+            {% if estudiante and estudiante.id  %}
+            <div class="info">
+                <div class="col-md-6 datos">
+                    <p>Nombre: {{estudiante.full_name}}</p>
+                    <p>Usuario: {{estudiante.usuario}}</p>
+                    <p>Solapín: {{estudiante.id}}</p>
+                    <p>Carrera: {{estudiante.carrera}}</p>
+                    <p>Año: {{estudiante.grade}}</p>
+                    <p>Facultad: {{estudiante.facultad}}</p>
+                </div>
+                <div class="col-md-6 datos">
+                    <p>Apartamento: {{estudiante.apartamento}}</p>
+                    <p>Provincia: {{estudiante.province}}</p>
+                    <p>Municipio: {{estudiante.municipio}}</p>
+                </div>
+            </div>
+            
+            
+            <div class="boton-container">
+                <a class="links" href=" {% url 'eliminar_estudiantes' estudiante.id %}">
+                    <button type="button" class="btn btn-secondary btn-lg botones">Eliminar</button>
+                </a>
+                
+
+                <a class="links" href="{% url 'editar_estudiantes' estudiante.id %}">
+                    <button type="button" class="btn btn-primary btn-lg botones">Editar</button>
+                </a>
+
+            </div>
+        {% endif %}
+        </div>
+        
+
+    </div>
+</div>
+
+{% endblock %}
