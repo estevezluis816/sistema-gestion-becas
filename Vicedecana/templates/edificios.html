@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
@@ -7,12 +6,15 @@
 <!-- CONTENIDO -->
 <div class="buscadores">
     <section>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
+        <!-- Búsqueda por Año -->
+        <form class="d-flex" method="get" action="{% url 'buscar' %}">
+            <input class="form-control me-2 search" type="search" name="ano" placeholder="Buscar por Año" aria-label="Buscar">
             <button class="btn btn-primary ano" type="submit">Buscar</button>
         </form>
-        <form class="d-flex" role="search">
-            <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
+
+        <!-- Búsqueda por Carrera -->
+        <form class="d-flex" method="get" action="{% url 'buscar' %}">
+            <input class="form-control me-2 search" type="search" name="carrera" placeholder="Buscar por Carrera" aria-label="Buscar">
             <button class="btn btn-primary carrera" type="submit">Buscar</button>
         </form>
     </section>

@@ -1,29 +1,67 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
 
-<!-- CONTENIDO -->
+<!-- BÚSQUEDA -->
 <div class="buscadores">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
-        <button class="btn btn-primary ano" type="submit">Buscar</button>
-    </form>
-    <form class="d-flex" role="search">
-        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
-        <button class="btn btn-primary carrera" type="submit">Buscar</button>
+    <form class="d-flex" method="get">
+        <select name="ano" class="form-control me-2">
+            <option value="">-- Año --</option>
+            <option value="1" {% if ano == '1' %}selected{% endif %}>1ro</option>
+            <option value="2" {% if ano == '2' %}selected{% endif %}>2do</option>
+            <option value="3" {% if ano == '3' %}selected{% endif %}>3ro</option>
+            <option value="4" {% if ano == '4' %}selected{% endif %}>4to</option>
+        </select>
+
+        <select name="carrera" class="form-control me-2">
+            <option value="">-- Carrera --</option>
+            <option value="ICI" {% if carrera == 'ICI' %}selected{% endif %}>Ingeniería Informática</option>
+            <option value="BIO" {% if carrera == 'BIO' %}selected{% endif %}>Bioinformática</option>
+            <option value="CIBER" {% if carrera == 'CIBER' %}selected{% endif %}>Ciberseguridad</option>
+        </select>
+
+        <button class="btn btn-primary" type="submit">Buscar</button>
     </form>
 </div>
 
-<div class="blue special" style="margin: 200px auto 90px;">
+<!-- RESULTADOS -->
+<div class="blue special" style="margin: 150px auto 90px;">
     <div id="formulario" class="myForm">
-        <h1 class="display-3 encabezados">Listado de Estudiantes:</h1>
+
+        <h1 class="display-3 encabezados">
+            {% if ano or carrera %}
+                Resultados{% if ano %} por Año "{{ ano }}"{% endif %}{% if carrera %} en Carrera "{{ carrera }}"{% endif %}
+            {% else %}
+                Listado de Estudiantes
+            {% endif %}
+        </h1>
+
         <hr>
-        {% for estudiante in estudiantes %}
-        <a class="list-edif" href="{% url 'mostrar_estudiantes' estudiante.id %}">{{estudiante.id}}</a>
-        {% endfor %}
+
+        {% if estudiantes %}
+            {% for estudiante in estudiantes %}
+                <a class="list-edif" href="{% url 'mostrar_estudiantes' estudiante.id %}">
+                    {{ estudiante.full_name }} – Carrera: {{ estudiante.carrera }} – Año: {{ estudiante.grade }}
+                </a>
+            {% endfor %}
+        {% else %}
+            <p class="text-light text-center mt-4">
+                ⚠️ No se encontraron estudiantes
+                {% if ano or carrera %}
+                    {% if ano %} de <strong>{{ ano }}º año</strong>{% endif %}
+                    {% if carrera %} en <strong>{{ carrera }}</strong>{% endif %}
+                {% endif %}.
+            </p>
+        {% endif %}
+
+        {% if ano or carrera %}
+        <div class="text-center mt-4">
+            <a class="btn btn-secondary" href="{% url 'listado_estudiantes' %}">Volver al listado completo</a>
+        </div>
+        {% endif %}
+
     </div>
-</div> 
+</div>
 
 {% endblock %}

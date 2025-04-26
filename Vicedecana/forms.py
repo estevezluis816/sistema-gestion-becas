@@ -9,22 +9,34 @@ class EstudianteForm(forms.ModelForm):
             'full_name': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Nombre Completo'}),
             'usuario': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Usuario'}),
             'id': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Solapín'}),
-            'grade': forms.NumberInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Año'}),
-            'carrera': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Carrera'}),
+            'grade': forms.Select(   # 🔥 cambiado a Select
+                attrs={'class': 'col-md-6 form-control'},
+                choices=[
+                    ('1', '1ro'),
+                    ('2', '2do'),
+                    ('3', '3ro'),
+                    ('4', '4to'),
+                ]
+            ),
+            'carrera': forms.Select(
+                attrs={'class': 'col-md-6 form-control'},
+                choices=[
+                    ('ICI', 'Ingeniería Informática (ICI)'),
+                    ('BIO', 'Ingeniería en Bioinformática (BIO)'),
+                    ('CIBER', 'Ciberseguridad (CIBER)'),
+                ]
+            ),
             'province': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Provincia'}),
             'municipio': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Municipio'}),
             'facultad': forms.Select(
-                attrs={
-                    'class': 'col-md-6 form-control',
-                },
+                attrs={'class': 'col-md-6 form-control'},
                 choices=[
-                    ('Facultad 1', 'Facultad 1'), ('Facultad 2', 'Facultad 2'),
-                    ('Facultad 3', 'Facultad 3'), ('Facultad 4', 'Facultad 4'),
+                    ('FTI', 'FTI'), ('FCS', 'FCS'),
+                    ('FIO', 'FIO'), ('FTL', 'FTL'),
                     ('FTE', 'FTE'), ('CITEC', 'CITEC')
                 ]
             ),
         }
-
 
 class EdificioForm(forms.ModelForm):
     class Meta:
@@ -33,15 +45,28 @@ class EdificioForm(forms.ModelForm):
         widgets = {
             'numero': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Numero'}),
             'disponibilidad': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Disponibilidad'}),
-            'ano': forms.NumberInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Año'}),
-            'carrera': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Carrera'}),
-            'facultad': forms.Select(
-                attrs={
-                    'class': 'col-md-6 form-control',
-                },
+            'ano': forms.Select(   # 🔥 cambiado a Select
+                attrs={'class': 'col-md-6 form-control'},
                 choices=[
-                    ('Facultad 1', 'Facultad 1'), ('Facultad 2', 'Facultad 2'),
-                    ('Facultad 3', 'Facultad 3'), ('Facultad 4', 'Facultad 4'),
+                    ('1', '1ro'),
+                    ('2', '2do'),
+                    ('3', '3ro'),
+                    ('4', '4to'),
+                ]
+            ),
+            'carrera': forms.Select(
+                attrs={'class': 'col-md-6 form-control'},
+                choices=[
+                    ('ICI', 'Ingeniería Informática (ICI)'),
+                    ('BIO', 'Ingeniería en Bioinformática (BIO)'),
+                    ('CIBER', 'Ciberseguridad (CIBER)'),
+                ]
+            ),
+            'facultad': forms.Select(
+                attrs={'class': 'col-md-6 form-control'},
+                choices=[
+                    ('FTI', 'FTI'), ('FCS', 'FCS'),
+                    ('FIO', 'FIO'), ('FTL', 'FTL'),
                     ('FTE', 'FTE'), ('CITEC', 'CITEC')
                 ]
             ),

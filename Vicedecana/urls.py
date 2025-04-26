@@ -1,7 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from. import views
-
+from . import views  # Aquí corriges el punto también: 'from . import views' (espacio después de 'from')
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
@@ -15,7 +14,7 @@ urlpatterns = [
     path('editar_estudiantes/<str:id>/', views.editar_estudiantes, name='editar_estudiantes'),
     path('mostrar_estudiantes/<str:id>/', views.mostrar_estudiantes, name='mostrar_estudiantes'),
     path('eliminar_estudiantes/<str:id>/', views.eliminar_estudiantes, name='eliminar_estudiantes'),
-    # path('actualizar_Estudiante/<str:solapin>/', views.actualizar_Estudiante, name='Actualizar estudiante'),
+
+    # 🚀 AGREGA ESTA LÍNEA para que funcione la búsqueda
+    path('buscar/', views.buscar, name='buscar'),
 ]
-
-

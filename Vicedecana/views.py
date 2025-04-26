@@ -6,8 +6,6 @@ from .forms import EstudianteForm, EdificioForm
 from django.db import IntegrityError
 
 
-# Create your views here.
-
 def inicio(request):
     return render(request, "index.html")
 
@@ -17,7 +15,7 @@ def registro(request):
 
 
 def registrar_edificios(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = EdificioForm(request.POST)
         if form.is_valid():
             form.save()
@@ -28,14 +26,14 @@ def registrar_edificios(request):
     else:
         form = EdificioForm()
         return render(request, "registroEdificios.html", {'form': form})
-    
-def add_persona(request):
 
+
+def add_persona(request):
     return render(request, "anadirPersona.html")
 
 
 def registrar_estudiantes(request):
-    if request.method =='POST':
+    if request.method == 'POST':
         form = EstudianteForm(request.POST)
         if form.is_valid():
             form.save()
@@ -49,11 +47,10 @@ def registrar_estudiantes(request):
 
 
 def listado_edificios(request):
-    edificios= Edificios.objects.all()
-    return render(request, "edificios.html", {'edificios':edificios})
+    edificios = Edificios.objects.all()
+    return render(request, "edificios.html", {'edificios': edificios})
 
 
-# views.py
 def editar_edificios(request, numero):
     edificio = get_object_or_404(Edificios, pk=numero)
     if request.method == 'POST':
@@ -73,16 +70,30 @@ def editar_edificios(request, numero):
     return render(request, "editarEdificio.html", {'form': form})
 
 
+
 def listado_estudiantes(request):
     estudiantes = Estudiantes.objects.all()
-    return render(request, "estudiantes.html", {'estudiantes':estudiantes})
+
+    ano = request.GET.get('ano', '').strip()
+    carrera = request.GET.get('carrera', '').strip()
+
+    if ano:
+        estudiantes = estudiantes.filter(grade=ano)
+    if carrera:
+        estudiantes = estudiantes.filter(carrera__icontains=carrera)
+
+    return render(request, "estudiantes.html", {
+        'estudiantes': estudiantes,
+        'ano': ano,
+        'carrera': carrera
+    })
 
 
 def mostrar_estudiantes(request, id):
     try:
         estudiante = Estudiantes.objects.get(pk=id)
     except Estudiantes.DoesNotExist:
-        return render(request, "mostrarEstudiante.html", {'estudiante': estudiante})
+        return render(request, "mostrarEstudiante.html", {'estudiante': None})
     else:
         return render(request, "mostrarEstudiante.html", {'estudiante': estudiante})
 
@@ -110,3 +121,32 @@ def eliminar_estudiantes(request, id):
     estudiante = get_object_or_404(Estudiantes, pk=id)
     estudiante.delete()
     return redirect('listado_estudiantes')
+
+
+def buscar(request):
+    query = request.GET.get('q', '').strip()
+    query_ano = request.GET.get('ano', '').strip()
+    query_carrera = request.GET.get('carrera', '').strip()
+
+    estudiantes = Estudiantes.objects.all()
+    edificios = Edificios.objects.all()
+
+    if query:
+        estudiantes = estudiantes.filter(full_name__icontains=query) | estudiantes.filter(usuario__icontains=query)
+        edificios = edificios.filter(numero__icontains=query)
+
+    if query_ano:
+        estudiantes = estudiantes.filter(grade__icontains=query_ano)
+        edificios = Edificios.objects.filter(ano__icontains=query_ano)
+
+    if query_carrera:
+        estudiantes = estudiantes.filter(carrera__icontains=query_carrera)
+        edificios = Edificios.objects.filter(carrera__icontains=query_carrera)
+
+    return render(request, "buscar.html", {
+        'query': query,
+        'query_ano': query_ano,
+        'query_carrera': query_carrera,
+        'estudiantes': estudiantes.distinct(),
+        'edificios': edificios.distinct(),
+    })

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="blue special" style="margin: 150px auto 90px;">
+    <div id="formulario" class="myForm">
+
+        {% if query_ano %}
+            <h1 class="display-5 encabezados">Resultados por Año "{{ query_ano }}"</h1>
+        {% elif query_carrera %}
+            <h1 class="display-5 encabezados">Resultados por Carrera "{{ query_carrera }}"</h1>
+        {% elif query %}
+            <h1 class="display-5 encabezados">Resultados para "{{ query }}"</h1>
+        {% endif %}
+
+        <hr>
+
+        <h2 class="encabezados">Estudiantes:</h2>
+        <ul class="list-group">
+            {% for estudiante in estudiantes %}
+                <li class="list-group-item">
+                    {{ estudiante.full_name }} - Carrera: {{ estudiante.carrera }} - Año: {{ estudiante.grade }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">No se encontraron estudiantes.</li>
+            {% endfor %}
+        </ul>
+
+        <h2 class="encabezados mt-4">Edificios:</h2>
+        <ul class="list-group">
+            {% for edificio in edificios %}
+                <li class="list-group-item">
+                    Edificio número {{ edificio.numero }}
+                </li>
+            {% empty %}
+                <li class="list-group-item">No se encontraron edificios.</li>
+            {% endfor %}
+        </ul>
+
+        <div class="text-center mt-4">
+            <a class="btn btn-secondary" href="{% url 'listado_estudiantes' %}">Volver al listado de estudiantes</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
