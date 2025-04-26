@@ -6,6 +6,9 @@ class Edificios(models.Model):
     disponibilidad = models.BooleanField(default=True)
     ano = models.CharField(max_length=255)
     carrera = models.CharField(max_length=255)
+    
+    
+    apartamento = models.CharField(max_length=10)
 
     class Meta:
         verbose_name = 'Edificio'
@@ -20,12 +23,10 @@ class Estudiantes(models.Model):
     usuario = models.CharField(max_length=255)
     id = models.CharField(max_length=255, primary_key=True)
     carrera = models.CharField(max_length=255)
-    facultad= models.CharField(max_length=255)
+    facultad = models.CharField(max_length=255)
     grade = models.IntegerField()
     province = models.CharField(max_length=255)
     municipio = models.CharField(max_length=255)
-
-
 
     class Meta:
         verbose_name = 'Estudiante'

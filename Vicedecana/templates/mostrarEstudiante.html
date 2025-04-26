@@ -1,63 +1,71 @@
 {% extends "base.html" %}
-
 {% load static %}
 
 {% block content %}
 
-<!-- CONTENIDO -->
-<div class="buscadores">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2 search" type="search" placeholder="Buscar por Año" aria-label="Search">
-        <button class="btn btn-primary ano" type="submit">Buscar</button>
-    </form>
-    <form class="d-flex" role="search">
-        <input class="form-control me-2 search" type="search" placeholder="Buscar por Carrera" aria-label="Search">
-        <button class="btn btn-primary carrera" type="submit">Buscar</button>
-    </form>
-</div>
-
 <div class="blue" style="margin: 200px auto 90px;">
-    <a href="{% url 'listado_estudiantes'%}">
-        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    <a href="{% url 'listado_estudiantes' %}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png' %}" alt="Cerrar">
     </a>
+
     <div id="formulario" class="myForm">
         <h1 class="display-3 encabezados">Estudiante:</h1>
         <hr>
+
         <div class="list-estudiantes">
-            {% if estudiante and estudiante.id  %}
+            {% if estudiante %}
             <div class="info">
                 <div class="col-md-6 datos">
-                    <p>Nombre: {{estudiante.full_name}}</p>
-                    <p>Usuario: {{estudiante.usuario}}</p>
-                    <p>Solapín: {{estudiante.id}}</p>
-                    <p>Carrera: {{estudiante.carrera}}</p>
-                    <p>Año: {{estudiante.grade}}</p>
-                    <p>Facultad: {{estudiante.facultad}}</p>
+                    <p>Nombre: {{ estudiante.full_name }}</p>
+                    <p>Usuario: {{ estudiante.usuario }}</p>
+                    <p>Solapín: {{ estudiante.id }}</p>
+                    <p>Carrera: {{ estudiante.carrera }}</p>
+                    <p>Año: {{ estudiante.grade }}</p>
+                    <p>Facultad: {{ estudiante.facultad }}</p>
                 </div>
                 <div class="col-md-6 datos">
-                    <p>Apartamento: {{estudiante.apartamento}}</p>
-                    <p>Provincia: {{estudiante.province}}</p>
-                    <p>Municipio: {{estudiante.municipio}}</p>
+                    <p>Apartamento: {{ estudiante.apartamento }}</p>
+                    <p>Provincia: {{ estudiante.province }}</p>
+                    <p>Municipio: {{ estudiante.municipio }}</p>
                 </div>
             </div>
-            
-            
-            <div class="boton-container">
-                <a class="links" href=" {% url 'eliminar_estudiantes' estudiante.id %}">
-                    <button type="button" class="btn btn-secondary btn-lg botones">Eliminar</button>
-                </a>
-                
+
+            <div class="boton-container mt-4">
+                <!-- Botón para abrir el modal de confirmar -->
+                <button type="button" class="btn btn-danger btn-lg botones" data-bs-toggle="modal" data-bs-target="#confirmarEliminarModal">
+                    Eliminar
+                </button>
 
                 <a class="links" href="{% url 'editar_estudiantes' estudiante.id %}">
                     <button type="button" class="btn btn-primary btn-lg botones">Editar</button>
                 </a>
-
             </div>
-        {% endif %}
+            {% endif %}
         </div>
-        
+    </div>
+</div>
+
+<!-- Modal de Confirmar Eliminación -->
+<div class="modal fade" id="confirmarEliminarModal" tabindex="-1" aria-labelledby="confirmarEliminarModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="confirmarEliminarModalLabel">¿Confirmar Eliminación?</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <p>¿Estás seguro de que deseas eliminar al estudiante <strong>{{ estudiante.full_name }}</strong>?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <a href="{% url 'eliminar_estudiantes' estudiante.id %}" class="btn btn-danger">Eliminar</a>
+      </div>
 
     </div>
+  </div>
 </div>
 
 {% endblock %}

@@ -13,9 +13,9 @@ def login_view(request):
 
         user = authenticate(request, username=username, password=password)
 
-        if user is not None and user.is_superuser:  # <-- CORREGIDO
+        if user is not None and user.is_superuser and user.is_active:
             django_login(request, user)
-            return redirect('inicio')  
+            return redirect('inicio')  # Redirige al inicio si el login es correcto
         else:
             messages.error(request, 'Credenciales inválidas o usuario no autorizado.')
             return render(request, 'login.html')

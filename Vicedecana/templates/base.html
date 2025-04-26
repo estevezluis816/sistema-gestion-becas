@@ -6,16 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>UCI</title>
 
-    <!-- bootstrap -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+    <!-- Bootstrap CSS (primero) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
+    <!-- Static Files -->
     {% load static %}
-    <link rel="stylesheet" href="{% static 'styles.css'%}">
-
+    <!-- Tu CSS propio (después de Bootstrap) -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 
 <body>
@@ -23,7 +20,7 @@
         <!-- BARRA -->
         <nav class="navbar navbar-expand-lg" style="background-color: #0f2167;" data-bs-theme="dark">
             <div class="container-fluid">
-                <img class="navbar-brand" src="{% static 'img/icons8-universidad-100.png'%}" alt="">
+                <img class="navbar-brand" src="{% static 'img/icons8-universidad-100.png' %}" alt="logo">
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -32,51 +29,53 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/inicio/' %}active{% endif %}" aria-current="page"
-                                href="{% url 'inicio' %}">Inicio</a>
+                            <a class="nav-link {% if request.path == '/inicio/' %}active{% endif %}" href="{% url 'inicio' %}">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/inicio/registro/' %}active{% endif %}"
-                                href="{% url 'registro' %}">Registro</a>
+                            <a class="nav-link {% if request.path == '/inicio/registro/' %}active{% endif %}" href="{% url 'registro' %}">Registro</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/inicio/listado_edificios/' %}active{% endif %}"
-                                href="{% url 'listado_edificios' %}">Edificios</a>
+                            <a class="nav-link {% if request.path == '/inicio/listado_edificios/' %}active{% endif %}" href="{% url 'listado_edificios' %}">Edificios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {% if request.path == '/inicio/listado_estudiantes/' %}active{% endif %}"
-                                href="{% url 'listado_estudiantes' %}">Estudiantes</a>
+                            <a class="nav-link {% if request.path == '/inicio/listado_estudiantes/' %}active{% endif %}" href="{% url 'listado_estudiantes' %}">Estudiantes</a>
                         </li>
                     </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Búsquedas" aria-label="Search">
+                    <form class="d-flex" role="search" method="GET" action="{% url 'buscar' %}">
+                        <input class="form-control me-2" type="search" name="q" placeholder="Búsquedas" aria-label="Buscar">
                         <button class="btn btn-primary" type="submit">Buscar</button>
                     </form>
                 </div>
             </div>
         </nav>
 
-        <!-- CONTENIDO -->
+        <!-- CONTENIDO PRINCIPAL -->
         {% block content %}
-
         {% endblock %}
-
 
         <!-- FOOTER -->
         <footer>
             <p>Universidad de las Ciencias Informáticas</p>
             <p>La Habana</p>
-            <a href="">Ayuda</a>
+            <a href="#">Ayuda</a>
             <div>
-                <a href="https://www.facebook.com/universidad.uci/?locale=es_LA"><img class="redes"
-                        src="{% static 'img/icons8-facebook-nuevo-100.png'%}" alt=""></a>
-                <a href="https://www.instagram.com/universidad.uci/?hl=es"><img class="redes"
-                        src="{% static 'img/icons8-instagram-100.png'%}" alt=""></a>
-                <a href="https://www.uci.cu/"><img class="redes" src="{% static 'img/icons8-web-100.png'%}" alt=""></a>
+                <a href="https://www.facebook.com/universidad.uci/?locale=es_LA">
+                    <img class="redes" src="{% static 'img/icons8-facebook-nuevo-100.png' %}" alt="facebook">
+                </a>
+                <a href="https://www.instagram.com/universidad.uci/?hl=es">
+                    <img class="redes" src="{% static 'img/icons8-instagram-100.png' %}" alt="instagram">
+                </a>
+                <a href="https://www.uci.cu/">
+                    <img class="redes" src="{% static 'img/icons8-web-100.png' %}" alt="sitio web">
+                </a>
             </div>
         </footer>
     </div>
 
+    <!-- Bootstrap Bundle con Popper (JavaScript) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <!-- Tu JavaScript personalizado -->
     <script src="{% static 'script.js' %}"></script>
 </body>
 

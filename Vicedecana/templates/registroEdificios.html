@@ -1,77 +1,61 @@
 {% extends "base.html" %}
-
 {% load widget_tweaks %}
-
 {% load static %}
 
 {% block content %}
-
-
 <!-- CONTENIDO -->
 <div class="form-container-edificio blue">
     <a href="{% url 'registro'%}">
         <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
     </a>
 
-
-
     <form id="formulario" class="registro-edificio row g-3 needs-validation" method="POST" novalidate>
         {% csrf_token %}
         {% if form.errors %}
-        <p>Por favor corrige los errores del formulario.</p>
-        <ul>
-            {% for field in form %} {% for error in field.errors %}
-            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}{% endfor %}
-        </ul>
+            <p>Por favor corrige los errores del formulario.</p>
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+            </ul>
         {% endif %}
-        <h1 class="display-3 encabezados">Registrar edificio:</h1>
 
+        <h1 class="display-3 encabezados">Registrar edificio:</h1>
         <hr>
 
         <div class="col-md-6" id="numeroEdificio">
             {{ form.numero|add_class:"form-control" }}
         </div>
 
-
-        <div class="col-md-6" id="carrera">
+        <div class="col-md-6" id="facultad">
             {{ form.facultad|add_class:"form-control" }}
         </div>
 
-
-
-        <div class="col-md-6" id="cantApto">
+        <div class="col-md-6" id="carrera">
             {{ form.carrera|add_class:"form-control" }}
         </div>
-
 
         <div class="col-md-6" id="anno">
             {{ form.ano|add_class:"form-control" }}
         </div>
 
-
-        <div class="col-md-6" id="facultad">
+        <div class="col-md-6" id="disponibilidad">
             {{ form.disponibilidad|add_class:"form-control" }}
         </div>
 
-        <!-- <div class="col-md-6" id="facultad">
-            {{ form.numero|add_class:"form-control" }}
-        </div> -->
-
-
+        
+        <div class="col-md-6" id="apartamento">
+            {{ form.apartamento|add_class:"form-control" }}
+        </div>
 
         <div class="boton-container" id="boton-container">
-           
-            <a class="links" href="{% url 'registro'%}">
+            <a class="links" href="{% url 'registro' %}">
                 <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
             </a>
-
             <button type="submit" class="btn btn-primary btn-lg botones">Insertar</button>
         </div>
     </form>
-
-
 </div>
-
-
 {% endblock %}
