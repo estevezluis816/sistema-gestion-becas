@@ -28,40 +28,52 @@
         <h1 class="display-3 encabezados">Registrar estudiante:</h1>
         <hr>
 
-        <div class="col-md-6">
-            {{ form.full_name|add_class:"form-control" }}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form.full_name|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                {{ form.id|add_class:"form-control" }}
+            </div>
         </div>
 
-        <div class="col-md-6">
-            {{ form.id|add_class:"form-control" }}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form.usuario|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                {{ form.facultad|add_class:"form-control" }}
+            </div>
         </div>
 
-        <div class="col-md-6">
-            {{ form.usuario|add_class:"form-control" }}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form.carrera|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                {{ form.grade|add_class:"form-control" }}
+            </div>
         </div>
 
-        <div class="col-md-6">
-            {{ form.facultad|add_class:"form-control" }}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                {{ form.province|add_class:"form-control" }}
+            </div>
+            <div class="col-md-6">
+                {{ form.municipio|add_class:"form-control" }}
+            </div>
         </div>
 
-        <div class="col-md-6">
-            {{ form.carrera|add_class:"form-control" }}
-        </div>
+        <div class="row mb-3">
+            <!-- Campo Edificio a la izquierda -->
+            <div class="col-md-6">
+                {{ form.edificio|add_class:"form-control" }}
+            </div>
 
-        <div class="col-md-6">
-            {{ form.grade|add_class:"form-control" }}
-        </div>
-
-        <div class="col-md-6">
-            {{ form.province|add_class:"form-control" }}
-        </div>
-
-        <div class="col-md-6">
-            {{ form.municipio|add_class:"form-control" }}
-        </div>
-
-        <div class="col-md-6">
-            {{ form.apartamento|add_class:"form-control" }}
+            <!-- Campo Apartamento a la derecha -->
+            <div class="col-md-6">
+                {{ form.apartamento|add_class:"form-control" }}
+            </div>
         </div>
 
         <div class="boton-container" id="boton-container">

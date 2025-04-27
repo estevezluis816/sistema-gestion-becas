@@ -1,7 +1,6 @@
 from django import forms
 from .models import Estudiantes, Edificios, Apartamento
 
-
 PROVINCIAS_CUBA = [
     ('Pinar del Río', 'Pinar del Río'),
     ('Artemisa', 'Artemisa'),
@@ -22,6 +21,12 @@ PROVINCIAS_CUBA = [
 ]
 
 class EstudianteForm(forms.ModelForm):
+    edificio = forms.ModelChoiceField(
+        queryset=Edificios.objects.all(),
+        empty_label="Seleccione Edificio",
+        widget=forms.Select(attrs={'class': 'col-md-6 form-control'})
+    )
+
     class Meta:
         model = Estudiantes
         fields = '__all__'
@@ -31,41 +36,35 @@ class EstudianteForm(forms.ModelForm):
             'id': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Solapín'}),
             'grade': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[
-                    ('1', '1ro'), ('2', '2do'), ('3', '3ro'), ('4', '4to'),
-                ]
+                choices=[('', 'Seleccione Año'), ('1', '1ro'), ('2', '2do'), ('3', '3ro'), ('4', '4to')]
             ),
             'carrera': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[
-                    ('ICI', 'Ingeniería Informática (ICI)'),
-                    ('BIO', 'Ingeniería en Bioinformática (BIO)'),
-                    ('CIBER', 'Ciberseguridad (CIBER)'),
-                ]
+                choices=[('', 'Seleccione Carrera'), 
+                         ('ICI', 'Ingeniería Informática (ICI)'),
+                         ('BIO', 'Ingeniería en Bioinformática (BIO)'),
+                         ('CIBER', 'Ciberseguridad (CIBER)')]
             ),
-            'province': forms.Select(   # 🔥 Select ahora
+            'province': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=PROVINCIAS_CUBA,
+                choices=[('', 'Seleccione Provincia')] + PROVINCIAS_CUBA,
             ),
             'municipio': forms.TextInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Municipio'}),
             'facultad': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[
-                    ('FTI', 'FTI'), ('FCS', 'FCS'),
-                    ('FIO', 'FIO'), ('FTL', 'FTL'),
-                    ('FTE', 'FTE'), ('CITEC', 'CITEC'),
-                ]
+                choices=[('', 'Seleccione Facultad'), 
+                         ('FTI', 'FTI'), ('FCS', 'FCS'),
+                         ('FIO', 'FIO'), ('FTL', 'FTL'),
+                         ('FTE', 'FTE'), ('CITEC', 'CITEC')]
             ),
-            'apartamento': forms.Select(
-                attrs={'class': 'col-md-6 form-control'},
-            ),
+            'apartamento': forms.Select(attrs={'class': 'col-md-6 form-control'}),
         }
-
-         
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['apartamento'].empty_label = "Seleccione Apartamento"
+
+
 
 class EdificioForm(forms.ModelForm):
     cantidad_apartamentos = forms.IntegerField(
@@ -84,22 +83,21 @@ class EdificioForm(forms.ModelForm):
             'disponibilidad': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
             'ano': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[('1', '1ro'), ('2', '2do'), ('3', '3ro'), ('4', '4to')],
+                choices=[('', 'Seleccione Año'), ('1', '1ro'), ('2', '2do'), ('3', '3ro'), ('4', '4to')]
             ),
             'carrera': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[
-                    ('ICI', 'Ingeniería Informática (ICI)'),
-                    ('BIO', 'Ingeniería en Bioinformática (BIO)'),
-                    ('CIBER', 'Ciberseguridad (CIBER)'),
-                ]
+                choices=[('', 'Seleccione Carrera'),
+                         ('ICI', 'Ingeniería Informática (ICI)'),
+                         ('BIO', 'Ingeniería en Bioinformática (BIO)'),
+                         ('CIBER', 'Ciberseguridad (CIBER)')]
             ),
             'facultad': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
-                choices=[
-                    ('FTI', 'FTI'), ('FCS', 'FCS'),
-                    ('FIO', 'FIO'), ('FTL', 'FTL'),
-                    ('FTE', 'FTE'), ('CITEC', 'CITEC'),
-                ]
+                choices=[('', 'Seleccione Facultad'),
+                         ('FTI', 'FTI'), ('FCS', 'FCS'),
+                         ('FIO', 'FIO'), ('FTL', 'FTL'),
+                         ('FTE', 'FTE'), ('CITEC', 'CITEC')]
             ),
         }
+
