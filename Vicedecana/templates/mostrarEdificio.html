@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="blue" style="margin: 200px auto 90px;">
+    <a href="{% url 'listado_edificios' %}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png' %}" alt="Cerrar">
+    </a>
+
+    <div id="formulario" class="myForm">
+        <h1 class="display-3 encabezados">Edificio:</h1>
+        <hr>
+
+        <div class="list-estudiantes">
+            {% if edificio %}
+            <div class="info">
+                <div class="col-md-6 datos">
+                    <p>Número de Edificio: {{ edificio.numero }}</p>
+                    <p>Facultad: {{ edificio.facultad }}</p>
+                </div>
+                <div class="col-md-6 datos">
+                    <p>Carrera: {{ edificio.carrera }}</p>
+                    <p>Año: {{ edificio.ano }}</p>
+                    <p>Disponibilidad: {% if edificio.disponibilidad %}Disponible{% else %}No disponible{% endif %}</p>
+                </div>
+            </div>
+
+            <div class="boton-container mt-4">
+                <a class="links" href="{% url 'editar_edificios' edificio.numero %}">
+                    <button type="button" class="btn btn-primary btn-lg botones">Editar</button>
+                </a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}

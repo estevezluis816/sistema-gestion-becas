@@ -1,62 +1,59 @@
 {% extends "base.html" %}
 {% load static %}
-{% load widget_tweaks %}  <!-- ¡Añade esta línea! -->
+{% load widget_tweaks %}
 
 {% block content %}
 
 <div class="form-container-edificio blue">
-    <!-- Elimina este enlace a listado_apartamentos -->
-    <a href="{% url 'listado_edificios'%}">  <!-- Enlace corregido -->
-        <img class="cruz" src="{% static 'img/icons9x-100 (1).png'%}" alt="">
+    <a href="{% url 'listado_edificios' %}">
+        <img class="cruz" src="{% static 'img/icons9x-100 (1).png' %}" alt="">
     </a>
 
-    <form id="formulario" class="registro-estudiante row g-3 needs-validation" method="POST" novalidate>
+    <form id="formulario" class="registro-edificio row g-3 needs-validation" method="POST" novalidate>
         {% csrf_token %}
         {% if form.errors %}
-        <div class="alert alert-danger">
-            <strong>Errores:</strong>
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
+            <div class="alert alert-danger">
+                <strong>Errores:</strong>
+                <ul>
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </ul>
-        </div>
+                </ul>
+            </div>
         {% endif %}
-        
-        <h1 class="display-3 encabezados">Editar Edificio:</h1>  <!-- Título corregido -->
-        <hr>
 
-        <!-- Campos del formulario actualizados para Edificio -->
+        <h1 class="display-3 encabezados">Editar Edificio:</h1>
+        <hr>
 
         <div class="col-md-6" id="numeroEdificio">
             {{ form.numero|add_class:"form-control" }}
         </div>
 
-
-        <div class="col-md-6" id="carrera">
+        <div class="col-md-6" id="facultad">
             {{ form.facultad|add_class:"form-control" }}
         </div>
 
-
-
-        <div class="col-md-6" id="cantApto">
+        <div class="col-md-6" id="carrera">
             {{ form.carrera|add_class:"form-control" }}
         </div>
-
 
         <div class="col-md-6" id="anno">
             {{ form.ano|add_class:"form-control" }}
         </div>
 
-
-        <div class="col-md-6" id="facultad">
+        <div class="col-md-6" id="disponibilidad">
             {{ form.disponibilidad|add_class:"form-control" }}
         </div>
 
+        <!-- Campo nuevo para editar cantidad de apartamentos -->
+        <div class="col-md-6" id="cantidad_apartamentos">
+            {{ form.cantidad_apartamentos|add_class:"form-control" }}
+        </div>
+
         <div class="boton-container">
-            <a class="links" href="{% url 'listado_edificios'%}">
+            <a class="links" href="{% url 'listado_edificios' %}">
                 <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
             </a>
             <button type="submit" class="btn btn-primary btn-lg botones">Aceptar</button>

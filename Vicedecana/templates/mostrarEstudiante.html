@@ -24,7 +24,11 @@
                     <p>Facultad: {{ estudiante.facultad }}</p>
                 </div>
                 <div class="col-md-6 datos">
-                    <p>Apartamento: {{ estudiante.apartamento }}</p>
+                    {% if estudiante.apartamento %}
+                        <p>Apartamento: {{ estudiante.apartamento.numero }} - Edificio {{ estudiante.apartamento.edificio.numero }}</p>
+                    {% else %}
+                        <p>Apartamento: No asignado</p>
+                    {% endif %}
                     <p>Provincia: {{ estudiante.province }}</p>
                     <p>Municipio: {{ estudiante.municipio }}</p>
                 </div>
