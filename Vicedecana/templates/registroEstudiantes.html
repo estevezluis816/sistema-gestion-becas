@@ -85,4 +85,43 @@
     </form>
 </div>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const edificioSelect = document.getElementById("id_edificio");
+    const apartamentoSelect = document.getElementById("id_apartamento");
+
+    // Actualizar el campo de apartamento cuando el usuario seleccione un edificio
+    edificioSelect.addEventListener("change", function() {
+        const edificioId = this.value;
+
+        // Realizar una petición AJAX para obtener los apartamentos del edificio seleccionado
+        fetch(`/obtener_apartamentos/${edificioId}/`)
+            .then(response => response.json())
+            .then(data => {
+                // Limpiar los apartamentos previos
+                apartamentoSelect.innerHTML = `<option value="">Seleccione Apartamento</option>`;
+                
+                // Si se obtienen apartamentos, agregar las opciones correspondientes
+                if (data.length > 0) {
+                    data.forEach(apto => {
+                        const option = document.createElement("option");
+                        option.value = apto.id;
+                        option.textContent = apto.numero;
+                        apartamentoSelect.appendChild(option);
+                    });
+                } else {
+                    // Si no hay apartamentos disponibles, mostrar un mensaje
+                    const option = document.createElement("option");
+                    option.value = "";
+                    option.textContent = "No hay apartamentos disponibles";
+                    apartamentoSelect.appendChild(option);
+                }
+            })
+            .catch(error => {
+                console.error("Error al cargar los apartamentos:", error);
+            });
+    });
+});
+</script>
+
 {% endblock %}

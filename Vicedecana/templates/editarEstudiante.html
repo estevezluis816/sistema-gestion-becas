@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% load widget_tweaks %}
-
 {% load static %}
 
 {% block content %}
@@ -26,9 +25,11 @@
         {% if form.errors %}
         <p>Por favor corrige los errores del formulario.</p>
         <ul>
-            {% for field in form %} {% for error in field.errors %}
-            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}{% endfor %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
         </ul>
         {% endif %}
         <h1 class="display-3 encabezados">Editar estudiante:</h1>
@@ -68,23 +69,15 @@
 
         <div class="col-md-6">
             {{ form.apartamento|add_class:"form-control" }}
-
         </div>
 
-
-
         <div class="boton-container">
-
             <a class="links" href="{% url 'listado_estudiantes' %}">
                 <button type="button" class="btn btn-secondary btn-lg botones">Cancelar</button>
             </a>
-
-
             <button type="submit" class="btn btn-primary btn-lg botones">Aceptar</button>
         </div>
     </form>
-</div>
-
 </div>
 
 {% endblock %}

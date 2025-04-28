@@ -24,7 +24,16 @@ class EstudianteForm(forms.ModelForm):
     edificio = forms.ModelChoiceField(
         queryset=Edificios.objects.all(),
         empty_label="Seleccione Edificio",
-        widget=forms.Select(attrs={'class': 'col-md-6 form-control'})
+        widget=forms.Select(attrs={'class': 'col-md-6 form-control'}),
+        required=True
+    )
+
+    # Apartamentos se cargan dinámicamente según el edificio seleccionado
+    apartamento = forms.ModelChoiceField(
+        queryset=Apartamento.objects.none(),
+        empty_label="Seleccione Apartamento",
+        widget=forms.Select(attrs={'class': 'col-md-6 form-control'}),
+        required=False  # Este campo se llenará después de seleccionar un edificio
     )
 
     class Meta:
@@ -43,7 +52,8 @@ class EstudianteForm(forms.ModelForm):
                 choices=[('', 'Seleccione Carrera'), 
                          ('ICI', 'Ingeniería Informática (ICI)'),
                          ('BIO', 'Ingeniería en Bioinformática (BIO)'),
-                         ('CIBER', 'Ciberseguridad (CIBER)')]
+                         ('CIBER', 'Ciberseguridad (CIBER)'),
+                         ('RSI', 'Redes y Seguridad Informática (RSI)')]
             ),
             'province': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
@@ -57,14 +67,25 @@ class EstudianteForm(forms.ModelForm):
                          ('FIO', 'FIO'), ('FTL', 'FTL'),
                          ('FTE', 'FTE'), ('CITEC', 'CITEC')]
             ),
-            'apartamento': forms.Select(attrs={'class': 'col-md-6 form-control'}),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['apartamento'].queryset = Apartamento.objects.none()  # Inicializamos con ningún apartamento
         self.fields['apartamento'].empty_label = "Seleccione Apartamento"
 
+    def set_apartamentos(self, edificio_id):
+        # Filtramos los apartamentos disponibles para el edificio seleccionado
+        self.fields['apartamento'].queryset = Apartamento.objects.filter(edificio_id=edificio_id, disponibilidad=True)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['apartamento'].queryset = Apartamento.objects.none()  # Se inicializa con ninguno
+        self.fields['apartamento'].empty_label = "Seleccione Apartamento"
+
+    def set_apartamentos(self, edificio_id):
+        # Filtrar apartamentos según el edificio seleccionado
+        self.fields['apartamento'].queryset = Apartamento.objects.filter(edificio_id=edificio_id, disponibilidad=True)
 
 class EdificioForm(forms.ModelForm):
     cantidad_apartamentos = forms.IntegerField(
@@ -72,7 +93,7 @@ class EdificioForm(forms.ModelForm):
         max_value=100,
         required=True,
         label="Cantidad de Apartamentos",
-        widget=forms.NumberInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Ej: 8, 10, 20'})
+        widget=forms.NumberInput(attrs={'class': 'col-md-6 form-control', 'placeholder': 'Apartamentos Disponibles'})
     )
 
     class Meta:
@@ -90,7 +111,8 @@ class EdificioForm(forms.ModelForm):
                 choices=[('', 'Seleccione Carrera'),
                          ('ICI', 'Ingeniería Informática (ICI)'),
                          ('BIO', 'Ingeniería en Bioinformática (BIO)'),
-                         ('CIBER', 'Ciberseguridad (CIBER)')]
+                         ('CIBER', 'Ciberseguridad (CIBER)'),
+                         ('RSI', 'Redes y Seguridad Informática (RSI)'),]
             ),
             'facultad': forms.Select(
                 attrs={'class': 'col-md-6 form-control'},
@@ -100,4 +122,3 @@ class EdificioForm(forms.ModelForm):
                          ('FTE', 'FTE'), ('CITEC', 'CITEC')]
             ),
         }
-
